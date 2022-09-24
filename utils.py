@@ -51,3 +51,49 @@ def create_authorized_service():
 
     except HttpError as err:
         print(err)
+
+
+def create_sheet(service):
+    """
+    Create a google spreadsheet using an authorized sheets service
+
+    Arguments:
+    - service: authorized google sheets service
+    """
+    
+    # sheet body used for the google sheet
+    sheet_body ={
+        "properties": {
+            "title": "expenses"
+        },
+        "sheets": [
+            {
+                "properties": {
+                    "sheetId": 0,
+                    "title": "dashboard"
+                }
+            },
+            {
+                "properties": {
+                    "sheetId": 1,
+                    "title": "pivot_tables"
+                    }
+            },
+            {
+                "properties": {
+                    "sheetId": 2,
+                    "title": "data"
+                    }
+            }
+        ]
+    }
+
+    # google sheets file
+    sheets_file = service.spreadsheets().create(body=sheet_body).execute()
+
+    # console log
+    message_user = f"""Created sheet:
+    {sheets_file["spreadsheetUrl"]}
+    {sheets_file["spreadsheetId"]}"""
+
+    print(message_user)
