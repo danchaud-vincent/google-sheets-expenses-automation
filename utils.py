@@ -133,6 +133,180 @@ def create_pivot_tables(service, spreadsheet_id, data, sheetId=1,sheetId_source=
     requests = {
         "requests": [
             {
+                "updateCells": {
+                    "rows": {
+                        "values": [
+                            {
+                                "pivotTable": {
+                                    "source": {
+                                        "sheetId": sheetId_source,
+                                        "startRowIndex": 0,
+                                        "endRowIndex": len(data),
+                                        "startColumnIndex": 0,
+                                        "endColumnIndex":5
+                                    },
+                                    "rows":[
+                                        {
+                                            "sourceColumnOffset": 2,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING"
+                                        }
+                                    ],
+                                    "values":[
+                                            {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 3
+                                        }
+                                    ],
+                                    "valueLayout" : "HORIZONTAL"
+                                }
+                            }
+                        ]
+                    },
+                    "start": {
+                        "sheetId": sheetId,
+                        "rowIndex": 0,
+                        "columnIndex": 0
+                    },
+                    "fields": "pivotTable"
+                }
+            },
+            {
+                "updateCells": {
+                    "rows": {
+                        "values": [
+                            {
+                                "pivotTable": {
+                                    "source": {
+                                        "sheetId": sheetId_source,
+                                        "startRowIndex": 0,
+                                        "endRowIndex": len(data),
+                                        "startColumnIndex": 0,
+                                        "endColumnIndex":5
+                                    },
+                                    "rows":[
+                                        {
+                                            "sourceColumnOffset": 1,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING"
+                                        }
+                                    ],
+                                    "values":[
+                                            {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 3
+                                        }
+                                    ],
+                                    "valueLayout" : "HORIZONTAL"
+                                }
+                            }
+                        ]
+                    },
+                    "start": {
+                        "sheetId": sheetId,
+                        "rowIndex": 0,
+                        "columnIndex": 3
+                    },
+                    "fields": "pivotTable"
+                }
+            },
+            {
+                "updateCells": {
+                    "rows": {
+                        "values": [
+                            {
+                                "pivotTable": {
+                                    "source": {
+                                        "sheetId": sheetId_source,
+                                        "startRowIndex": 0,
+                                        "endRowIndex": len(data),
+                                        "startColumnIndex": 0,
+                                        "endColumnIndex":5
+                                    },
+                                    "rows":[
+                                        {
+                                            "sourceColumnOffset": 0,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING",
+                                            "groupRule":{
+                                                "dateTimeRule":{
+                                                    "type": "YEAR_MONTH"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "values":[
+                                        {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 3
+                                        },
+                                        {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 4
+                                        }
+                                    ],
+                                    "valueLayout" : "HORIZONTAL"
+                                }
+                            }
+                        ]
+                    },
+                    "start": {
+                        "sheetId": sheetId,
+                        "rowIndex": 0,
+                        "columnIndex": 6
+                    },
+                    "fields": "pivotTable"
+                }
+            },
+            {
+                "updateCells": {
+                    "rows": {
+                        "values": [
+                            {
+                                "pivotTable": {
+                                    "source": {
+                                        "sheetId": sheetId_source,
+                                        "startRowIndex": 0,
+                                        "endRowIndex": len(data),
+                                        "startColumnIndex": 0,
+                                        "endColumnIndex":5
+                                    },
+                                    "rows":[
+                                        {
+                                            "sourceColumnOffset": 0,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING",
+                                            "groupRule":{
+                                                "dateTimeRule":{
+                                                    "type": "YEAR"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "values":[
+                                        {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 3
+                                        },
+                                        {
+                                            "summarizeFunction": "SUM",
+                                            "sourceColumnOffset": 4
+                                        }
+                                    ],
+                                    "valueLayout" : "HORIZONTAL"
+                                }
+                            }
+                        ]
+                    },
+                    "start": {
+                        "sheetId": sheetId,
+                        "rowIndex": 0,
+                        "columnIndex": 10
+                    },
+                    "fields": "pivotTable"
+                }
+            },
+            {
                 "updateCells":{
                     "rows":{
                         "values":[
@@ -162,7 +336,7 @@ def create_pivot_tables(service, spreadsheet_id, data, sheetId=1,sheetId_source=
                                         {
                                             "sourceColumnOffset": 2,
                                             "showTotals": False,
-                                            "sortOrder": "ASCENDING",
+                                            "sortOrder": "ASCENDING"
                                         }
                                     ],
                                     "values":[
@@ -178,7 +352,7 @@ def create_pivot_tables(service, spreadsheet_id, data, sheetId=1,sheetId_source=
                     },
                     "start":{
                         "sheetId": sheetId,
-                        "rowIndex": 0,
+                        "rowIndex": 40,
                         "columnIndex": 0
                     },
                     "fields": "pivotTable"
@@ -188,6 +362,7 @@ def create_pivot_tables(service, spreadsheet_id, data, sheetId=1,sheetId_source=
     }
 
     service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=requests).execute()
+
 
 def format_cells(service, spreadsheet_id, sheetId=2):
     """
