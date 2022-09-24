@@ -120,6 +120,75 @@ def update_values(service, spreadsheet_id, data):
     ).execute()
 
 
+def create_pivot_tables(service, spreadsheet_id, data, sheetId=1,sheetId_source=2):
+    """
+    Create the pivot tables in the sheet 1
+
+    Arguments:
+    - service : google sheets service
+    - spreadsheet_id (string): id of the google spreadsheet
+    - sheetId (int) : if of the sheet where store the pivot tables
+    """
+
+    requests = {
+        "requests": [
+            {
+                "updateCells":{
+                    "rows":{
+                        "values":[
+                            {
+                                "pivotTable":{
+                                    "source":{
+                                        "sheetId": sheetId_source,
+                                        "startRowIndex": 0,
+                                        "endRowIndex": len(data),
+                                        "startColumnIndex": 0,
+                                        "endColumnIndex": 5
+                                    },
+                                    "rows":[
+                                        {
+                                            "sourceColumnOffset": 0,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING",
+                                            "groupRule":{
+                                                "dateTimeRule":{
+                                                    "type": "YEAR_MONTH"
+                                                }
+                                            }
+                                        },
+                                       
+                                    ],
+                                    "columns": [
+                                        {
+                                            "sourceColumnOffset": 2,
+                                            "showTotals": False,
+                                            "sortOrder": "ASCENDING",
+                                        }
+                                    ],
+                                    "values":[
+                                        {
+                                            "sourceColumnOffset": 3,
+                                            "summarizeFunction": "SUM"
+                                        }
+                                    ],
+                                    "valueLayout" : "HORIZONTAL"
+                                }
+                            }
+                        ]
+                    },
+                    "start":{
+                        "sheetId": sheetId,
+                        "rowIndex": 0,
+                        "columnIndex": 0
+                    },
+                    "fields": "pivotTable"
+                }
+            }
+        ]
+    }
+
+    service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=requests).execute()
+
 def format_cells(service, spreadsheet_id, sheetId=2):
     """
     Set a custom datetime and format for a range in the sheet 2
@@ -127,7 +196,7 @@ def format_cells(service, spreadsheet_id, sheetId=2):
     Arguments:
     - service : google sheets service
     - spreadsheet_id (string): id of the google spreadsheet
-    - sheetId (int): id of the sheet
+    - sheetId (int): id of the sheet where apply the formatting
     """
 
     requests = {
