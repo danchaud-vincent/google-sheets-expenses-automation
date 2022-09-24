@@ -9,3 +9,14 @@ import os
 
 # scopes
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+
+
+# ----- functions ---------
+
+def create_authorized_service():
+    """
+    Create an authorized service for google sheets using a personal credentials.json file
+
+    Returns:
+    - service: Google Sheets service
+    """
