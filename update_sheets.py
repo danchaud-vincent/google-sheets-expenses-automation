@@ -7,7 +7,7 @@ if __name__ == "__main__":
     service = create_authorized_service()
 
     # Your spreadsheet id
-    sheet_id = "1ccfchG81UKwMHwjiuxPuN2ffISoijB3HR4ryl03XP_k"
+    sheet_id = "1TrWYvpNVF16BD6sQxF_0UZSowWwggHm-E2xvLjiG4G0"
 
     # get the data from csv file
     data = get_data("expenses.csv")
@@ -16,5 +16,6 @@ if __name__ == "__main__":
     update_values(service, sheet_id, data)
 
     # format the cells of the google sheets 
+
 
     # create pivot tables
