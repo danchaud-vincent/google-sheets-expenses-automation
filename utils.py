@@ -118,3 +118,105 @@ def update_values(service, spreadsheet_id, data):
         range=range,
         body={"majorDimension": "ROWS", "values": data}
     ).execute()
+
+
+def format_cells(service, spreadsheet_id, sheetId=2):
+    """
+    Set a custom datetime and format for a range in the sheet 2
+
+    Arguments:
+    - service : google sheets service
+    - spreadsheet_id (string): id of the google spreadsheet
+    - sheetId (int): id of the sheet
+    """
+
+    requests = {
+        "requests": [
+            {
+                "repeatCell": {
+                    "range": {
+                        "sheetId": sheetId,
+                        "startRowIndex": 1,
+                        "startColumnIndex": 0,
+                        },
+                        "cell": {
+                            "userEnteredFormat": {
+                                "horizontalAlignment" : "CENTER"
+                            }
+                        },
+                        "fields": "userEnteredFormat.horizontalAlignment"
+                }
+            },
+            {
+                "repeatCell": {
+                    "range": {
+                        "sheetId": sheetId,
+                        "startRowIndex": 1,
+                        "startColumnIndex": 0,
+                        "endColumnIndex": 1
+                        },
+                        "cell": {
+                            "userEnteredFormat": {
+                                "numberFormat": {
+                                    "type": "DATE",
+                                    "pattern": "dd/mm/yyyy"
+                                    }
+                            }
+                        },
+                        "fields": "userEnteredFormat.numberFormat"
+                }
+            },
+            {
+                "repeatCell":{
+                    "range":{
+                        "sheetId": sheetId,
+                        "startRowIndex":1,
+                        "startColumnIndex":3,
+                        "endColumnIndex":5
+                    },
+                    "cell": {
+                        "userEnteredFormat": {
+                            "numberFormat": {
+                                "type": "NUMBER"
+                            }
+                        }
+                    },
+                    "fields": "userEnteredFormat.numberFormat"
+                }
+            },
+            {
+                "repeatCell":{
+                    "range":{
+                        "sheetId": sheetId,
+                        "startRowIndex":0,
+                        "endRowIndex": 1,
+                        "startColumnIndex":0,
+                        "endColumnIndex":5
+                    },
+                    "cell": {
+                        "userEnteredFormat": {
+                            "backgroundColor": {
+                                    "red": 0.0,
+                                    "green": 0.0,
+                                    "blue": 0.0
+                            },
+                            "horizontalAlignment" : "CENTER",
+                            "textFormat": {
+                                "foregroundColor": {
+                                    "red": 1.0,
+                                    "green": 1.0,
+                                    "blue": 1.0
+                                },
+                                
+                                "bold": True,
+                                "fontSize": 11
+                            }
+                        }
+                    },
+                    "fields": "userEnteredFormat(backgroundColor,textFormat,horizontalAlignment)"
+                }
+            }
+        ]
+    }
+
+    service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=requests).execute()
