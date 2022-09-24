@@ -1,3 +1,4 @@
 expenses.csv
 credentials.json
 token.json
+__pycache__
