@@ -27,7 +27,8 @@ class Expense():
     def __init__(self, date, item, debit, credit):
         self.date = date
         self.item = item
-        self.price = debit if str(debit) != "" else credit 
+        self.debit = debit
+        self.credit = credit
         self.category = self.determine_category()
 
     def determine_category(self):
@@ -84,7 +85,7 @@ def get_data(file):
         # get headers and rows
         headers = next(csv_reader)
         rows = [[item.strip() for item in row] for row in csv_reader]
-
+       
         # sort rows by date
         rows.sort(key=lambda row: datetime.strptime(row[0], "%d/%m/%Y"))
 
@@ -103,7 +104,8 @@ def get_data(file):
                 expenses.append([expense_obj.date,
                             expense_obj.item,
                             expense_obj.category.value,
-                            expense_obj.price])
+                            expense_obj.debit,
+                            expense_obj.credit])
             except Exception as e:
                 raise e
                 
