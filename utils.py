@@ -97,3 +97,24 @@ def create_sheet(service):
     {sheets_file["spreadsheetId"]}"""
 
     print(message_user)
+
+
+
+def update_values(service, spreadsheet_id, data):
+    """
+    Update the values of the google spreadsheets
+
+    Arguments:
+    - service : service google sheets
+    - spreadsheet_id (str): id of the google spreadsheet
+    - data (list): headers and rows to store in the google sheets
+    """
+
+    range = "data!A1"
+
+    service.spreadsheets().values().update(
+        spreadsheetId=spreadsheet_id,
+        valueInputOption="USER_ENTERED",
+        range=range,
+        body={"majorDimension": "ROWS", "values": data}
+    ).execute()
