@@ -1,4 +1,4 @@
-from utils import create_authorized_service, update_values, format_cells
+from utils import create_authorized_service, update_values, format_cells, create_pivot_tables
 from data_loader import get_data
 
 if __name__ == "__main__":
@@ -19,3 +19,4 @@ if __name__ == "__main__":
     format_cells(service, spreadsheet_id)
 
     # create pivot tables
+    create_pivot_tables(service, spreadsheet_id, data)
