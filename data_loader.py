@@ -83,15 +83,15 @@ def get_data(file):
         csv_reader = csv.reader(file, delimiter=";")
 
         # get headers and rows
-        headers = next(csv_reader)
+        old_headers = next(csv_reader)
+        new_headers = ["Date","Description","Category","Expenses", "Incomes"]
         rows = [[item.strip() for item in row] for row in csv_reader]
        
         # sort rows by date
         rows.sort(key=lambda row: datetime.strptime(row[0], "%d/%m/%Y"))
 
         # add headers in list
-        headers.insert(2,"Category")
-        expenses.append(headers)
+        expenses.append(new_headers)
 
         # add rows in list
         for row in rows:
