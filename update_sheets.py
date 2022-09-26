@@ -7,7 +7,7 @@ if __name__ == "__main__":
     service = create_authorized_service()
 
     # Your spreadsheet id
-    spreadsheet_id = "1TrWYvpNVF16BD6sQxF_0UZSowWwggHm-E2xvLjiG4G0"
+    spreadsheet_id = "YOUR_ID"
 
     # get the data from csv file
     data = get_data("expenses.csv")
